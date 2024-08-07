@@ -4,14 +4,14 @@ on: push
 
 jobs:
   automated-api-tests:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install Postman CLI
         run: |
-          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+          powershell.exe -NoProfile -InputFormat None -ExecutionPolicy AllSigned -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://dl-cli.pstmn.io/install/win64.ps1'))"
       - name: Login to Postman CLI
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
       - name: Run API tests
         run: |
-          postman collection run "33842814-ebf98685-a42b-4713-96d9-97aba09e9243"
+          postman collection run "33842814-e0530c74-9dcc-4b89-b91b-e9e898f47f95" -e "33842814-4429e15d-a20f-43b9-836a-bed0d77a291e"
